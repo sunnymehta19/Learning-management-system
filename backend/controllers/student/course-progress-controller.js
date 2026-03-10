@@ -1,7 +1,7 @@
 
 const CourseProgress = require("../../models/courseProgress");
 const Course = require("../../models/course");
-const StudentCourses = require("../../models/StudentCourses");
+const StudentCourses = require("../../models/studentCourses");
 const generateSignedVideoUrl = require("../../utils/generateSignedVideoUrl");
 
 //mark current lecture as viewed

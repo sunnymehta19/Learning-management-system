@@ -2,7 +2,7 @@
 const paypal = require("../../helper/paypal");
 const Order = require("../../models/Order");
 const Course = require("../../models/course");
-const StudentCourses = require("../../models/StudentCourses");
+const StudentCourses = require("../../models/studentCourses");
 
 const createOrder = async (req, res) => {
   try {
