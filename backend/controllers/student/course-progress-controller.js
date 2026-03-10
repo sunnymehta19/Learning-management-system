@@ -221,8 +221,8 @@ const getVideoUrl = async (req, res) => {
 
     // Generate signed URL
     const signedUrl = generateSignedVideoUrl(lecture.public_id, userEmail, userId);
-    console.log("Generating Signed URL for publicId:", lecture.public_id);
-    console.log("Generated Signed URL:", signedUrl);
+    // console.log("Generating Signed URL for publicId:", lecture.public_id);
+    // console.log("Generated Signed URL:", signedUrl);
 
     res.status(200).json({
       success: true,

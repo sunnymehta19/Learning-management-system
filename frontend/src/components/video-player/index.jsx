@@ -20,8 +20,7 @@ function VideoPlayer({
   onProgressUpdate,
   progressData,
 }) {
-  console.log("[VideoPlayer] URL passed to player:", url);
-  
+ 
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
   const [muted, setMuted] = useState(false);
@@ -207,7 +206,7 @@ function VideoPlayer({
       setDuration(videoRef.current.duration);
       setIsReady(true);
       setError(null);
-      console.log("[VideoPlayer] Video metadata loaded. Duration:", videoRef.current.duration);
+      
     }
   };
 
