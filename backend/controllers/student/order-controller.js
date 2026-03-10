@@ -1,6 +1,6 @@
 
 const paypal = require("../../helper/paypal");
-const Order = require("../../models/Order");
+const Order = require("../../models/order");
 const Course = require("../../models/course");
 const StudentCourses = require("../../models/studentCourses");
 
