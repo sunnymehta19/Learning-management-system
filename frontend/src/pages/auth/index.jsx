@@ -9,9 +9,10 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { signInFormControls, signUpFormControls } from "@/config";
 import { AuthContext } from "@/context/auth/authContext";
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, Loader2 } from "lucide-react";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 function AuthPage() {
     const [activeTab, setActiveTab] = useState("signin");
@@ -22,6 +23,8 @@ function AuthPage() {
         setSignUpFormData,
         handleRegisterUser,
         handleLoginUser,
+        isSigningIn,
+        isSigningUp,
     } = useContext(AuthContext);
 
     function handleTabChange(value) {
@@ -58,7 +61,7 @@ function AuthPage() {
 
             {/* Header */}
             <div className="absolute left-4 top-5">
-                <Link to={"/"} className="flex items-center justify-center">
+                <Link to={"/home"} className="flex items-center justify-center">
                     <GraduationCap className="h-8 w-8 mr-4" />
                     <span className="font-extrabold text-xl text-white">
                         LMS LEARN
@@ -110,6 +113,7 @@ function AuthPage() {
                                     formData={signInFormData}
                                     setFormData={setSignInFormData}
                                     isButtonDisabled={!checkIfSignInFormIsValid()}
+                                    isLoading={isSigningIn}
                                     handleSubmit={handleLoginUser}
                                 />
                             </CardContent>
@@ -135,6 +139,7 @@ function AuthPage() {
                                     formData={signUpFormData}
                                     setFormData={setSignUpFormData}
                                     isButtonDisabled={!checkIfSignUpFormIsValid()}
+                                    isLoading={isSigningUp}
                                     handleSubmit={handleSignUpSubmit}
                                 />
                             </CardContent>

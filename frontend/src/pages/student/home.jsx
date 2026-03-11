@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "@/context/auth/authContext";
 import { StudentContext } from "@/context/student/studentContext";
 import HeroSection from "@/components/student-view/hero-section";
-
 import { 
     Layout, 
     Database, 
@@ -23,6 +22,9 @@ import {
     Layers,
     ArrowRight
 } from "lucide-react";
+import HomePageSkeleton from "@/components/student-view/homepage-skeleton";
+
+
 
 const categoryIconMap = {
     'web-development': Layout,
@@ -38,7 +40,7 @@ const categoryIconMap = {
 };
 
 function StudentHomePage() {
-    const { studentViewCoursesList, setStudentViewCoursesList } =
+    const { studentViewCoursesList, setStudentViewCoursesList, loadingState, setLoadingState } =
         useContext(StudentContext);
     const { auth } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -55,8 +57,10 @@ function StudentHomePage() {
     }
 
     async function fetchAllStudentViewCourses() {
+        setLoadingState(true);
         const response = await fetchStudentViewCourseListService();
         if (response?.success) setStudentViewCoursesList(response?.data);
+        setLoadingState(false);
     }
 
     async function handleCourseNavigate(getCurrentCourseId) {
@@ -86,6 +90,8 @@ function StudentHomePage() {
     const featuredCourses = studentViewCoursesList && studentViewCoursesList.length > 0
         ? studentViewCoursesList.filter(course => course.isFeatured)
         : [];
+
+    if (loadingState) return <HomePageSkeleton />;
 
     return (
         <div className="min-h-screen bg-black text-white">

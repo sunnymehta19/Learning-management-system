@@ -15,10 +15,13 @@ export default function AuthProvider({ children }) {
     user: null,
   });
   const [loading, setLoading] = useState(true);
+  const [isSigningIn, setIsSigningIn] = useState(false);
+  const [isSigningUp, setIsSigningUp] = useState(false);
   const navigate = useNavigate();
 
   async function handleRegisterUser(event) {
     event.preventDefault();
+    setIsSigningUp(true);
 
     try {
       const data = await registerService(signUpFormData);
@@ -30,15 +33,18 @@ export default function AuthProvider({ children }) {
         toast.error(data.message || "Registration failed");
       }
 
+      setIsSigningUp(false);
       return data;
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
+      setIsSigningUp(false);
       return null;
     }
   }
 
   async function handleLoginUser(event) {
     event.preventDefault();
+    setIsSigningIn(true);
 
     try {
       const data = await loginService(signInFormData);
@@ -56,6 +62,7 @@ export default function AuthProvider({ children }) {
 
         toast.success("Login successful");
         setSignInFormData(initialSignInFormData);
+        setIsSigningIn(false);
         navigate("/");
       } else {
         setAuth({
@@ -64,9 +71,11 @@ export default function AuthProvider({ children }) {
         });
 
         toast.error(data.message || "Invalid email or password");
+        setIsSigningIn(false);
       }
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something went wrong");
+      setIsSigningIn(false);
     }
   }
 
@@ -123,6 +132,8 @@ export default function AuthProvider({ children }) {
         handleLoginUser,
         auth,
         resetCredentials,
+        isSigningIn,
+        isSigningUp,
       }}
     >
       {loading ? <Skeleton /> : children}
