@@ -234,6 +234,20 @@ function VideoPlayer({
     setError("Unable to load video. The authentication may have expired or the video is unavailable. Please refresh the page.");
   };
 
+  // Reset player state when URL changes
+  useEffect(() => {
+    if (videoRef.current && url) {
+      setPlaying(false);
+      setPlayed(0);
+      setDuration(0);
+      setIsReady(false);
+      setError(null);
+      
+      // Reload the video element
+      videoRef.current.load();
+    }
+  }, [url]);
+
   // Progress update callback (for course progress tracking)
   useEffect(() => {
     if (played === 1 && onProgressUpdate) {
